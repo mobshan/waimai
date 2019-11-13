@@ -2,13 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Msite from "../pages/msite/Msite.vue";
-import Oder from "../pages/oder/Oder.vue";
+import Order from "../pages/oder/Order.vue";
 import Profile from "../pages/profile/Profile.vue";
 import Search from "../pages/search/Search.vue";
 
 const routes = [
   { path: "/msite", component: Msite },
-  { path: "/oder", component: Oder },
+  { path: "/order", component: Order },
   { path: "/profile", component: Profile },
   { path: "/search", component: Search }
 ];
