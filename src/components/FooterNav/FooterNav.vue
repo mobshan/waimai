@@ -2,24 +2,24 @@
   <footer class="footer_guide border-1px">
     <router-link to="/msite" class="guide_item" v-bind:class="{on: '/msite'===$route.path}">
       <span class="item_icon">
-        <i class="iconfont icon-icon-test"></i>
+        <i class="iconfont icon-waimaixinxi"></i>
       </span>
       <span>外卖</span>
     </router-link>
 
-    <router-link to="/search" class="guide_item">
+    <router-link to="/search" class="guide_item" :class="{on: '/search'===$route.path}">
       <span class="item_icon">
         <i class="iconfont icon-search"></i>
       </span>
       <span>搜索</span>
     </router-link>
-    <router-link to="/order" class="guide_item">
+    <router-link to="/order" class="guide_item" :class="{on: '/order'===$route.path}">
       <span class="item_icon">
         <i class="iconfont icon-emaxcitygerenxinxitubiaoji03"></i>
       </span>
       <span>订单</span>
     </router-link>
-    <router-link to="/profile" class="guide_item">
+    <router-link to="/profile" class="guide_item" :class="{on: '/profile'===$route.path}">
       <span class="item_icon">
         <i class="iconfont icon-profilehover"></i>
       </span>
