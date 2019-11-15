@@ -2,13 +2,17 @@
   <section class="msite">
     <!--首页头部-->
     <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
-      <span class="header_search" slot="left">
-        <i class="iconfont icon-sousuo"></i>
-      </span>
+      <template v-slot:left>
+        <span class="header_search" slot="left">
+          <i class="iconfont icon-sousuo"></i>
+        </span>
+      </template>
 
-      <span class="header_login" slot="right">
-        <span class="header_login_text">登录|注册</span>
-      </span>
+      <template v-slot:right>
+        <span class="header_login" slot="right">
+          <span class="header_login_text">登录|注册</span>
+        </span>
+      </template>
     </HeaderTop>
     <!--首页导航-->
     <nav class="msite_nav">
