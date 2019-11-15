@@ -1,16 +1,6 @@
 <template>
   <section class="search">
-    <header class="header">
-      <span class="header_search">
-        <i class="iconfont icon-sousuo"></i>
-      </span>
-      <span class="header_title">
-        <span class="header_title_text ellipsis">昌平区北七家宏福科技园(337省道北)</span>
-      </span>
-      <span class="header_login">
-        <span class="header_login_text">登录|注册</span>
-      </span>
-    </header>
+    <HeaderTop title="搜索"></HeaderTop>
     <form class="search_form" action="#">
       <input type="search" name="search" placeholder="请输入商家或美食名称" class="search_input" />
       <input type="submit" class="search_submit" />
@@ -18,7 +8,12 @@
   </section>
 </template>
 <script>
-export default {}
+import HeaderTop from '../../components/HeaderTop/HeaderTop'
+export default {
+  components: {
+    HeaderTop
+  }
+}
 </script>
 <style lang="scss">
 @import '../../common/sass/mixins.scss';

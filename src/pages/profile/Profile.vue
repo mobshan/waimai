@@ -1,16 +1,6 @@
 <template>
   <section class="profile">
-    <header class="header">
-      <span class="header_search">
-        <i class="iconfont icon-sousuo"></i>
-      </span>
-      <span class="header_title">
-        <span class="header_title_text ellipsis">昌平区北七家宏福科技园(337省道北)</span>
-      </span>
-      <span class="header_login">
-        <span class="header_login_text">登录|注册</span>
-      </span>
-    </header>
+    <HeaderTop title="我的"></HeaderTop>
     <section class="profile-number">
       <a href="javascript:" class="profile-link">
         <div class="profile_image">
@@ -107,7 +97,12 @@
   </section>
 </template>
 <script>
-export default {}
+import HeaderTop from '../../components/HeaderTop/HeaderTop'
+export default {
+  components: {
+    HeaderTop
+  }
+}
 </script>
 <style lang="scss">
 @import '../../common/sass/mixins.scss';
