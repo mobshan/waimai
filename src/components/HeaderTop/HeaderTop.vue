@@ -1,11 +1,11 @@
 <template>
   <header class="header">
     <!-- 插槽是父组件与子组件的通讯方式，子组件中的slot可以显示父组件传递给子组件的内容 -->
-    <!-- <slot name="left"></slot> -->
+    <slot name="left"></slot>
     <span class="header_title">
       <span class="header_title_text ellipsis">{{title}}</span>
     </span>
-    <!-- <slot name="right"></slot> -->
+    <slot name="right"></slot>
   </header>
 </template>
 
@@ -46,6 +46,18 @@ export default {
     color: #fff;
     font-size: 22px;
     text-align: center;
+  }
+
+  .header_login {
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    .header_login_text {
+      color: #fff;
+    }
   }
 }
 </style>
