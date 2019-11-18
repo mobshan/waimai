@@ -2,7 +2,8 @@
   <div id="app">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1331186_krncm9pw1d.css" />
     <router-view></router-view>
-    <FooterNav></FooterNav>
+    <!-- 我们要动太的控制这个footer的显示与隐藏 -->
+    <FooterNav v-show="$route.meta.showFooter"></FooterNav>
   </div>
 </template>
 

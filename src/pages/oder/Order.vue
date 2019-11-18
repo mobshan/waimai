@@ -21,6 +21,7 @@ export default {
 .order {
   // 订单
   width: 100%;
+  overflow: hidden;
   .header {
     // 头部公共css
     background-color: #02a774;
