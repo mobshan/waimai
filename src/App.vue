@@ -9,10 +9,15 @@
 
 <script>
 import FooterNav from './components/FooterNav/FooterNav'
+import axios from 'axios'
 export default {
   name: 'app',
   components: {
     FooterNav: FooterNav
+  },
+  async mounted() {
+    const result = await axios.get('/api/index_category')
+    console.log(result)
   }
 }
 </script>
