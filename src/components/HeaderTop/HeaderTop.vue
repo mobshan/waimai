@@ -17,7 +17,6 @@ export default {
 </script>
 <style lang="scss">
 .header {
-  // 头部公共css
   background-color: #02a774;
   position: fixed;
   z-index: 100;
@@ -32,8 +31,8 @@ export default {
     transform: translateY(-50%);
     width: 10%;
     height: 50%;
-    .iconfont {
-      font-size: 22px;
+    .icon-sousuo {
+      font-size: 25px;
       color: #fff;
     }
   }
@@ -42,12 +41,15 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30%;
+    width: 50%;
     color: #fff;
-    font-size: 22px;
     text-align: center;
+    .header_title_text {
+      font-size: 20px;
+      color: #fff;
+      display: block;
+    }
   }
-
   .header_login {
     font-size: 14px;
     color: #fff;

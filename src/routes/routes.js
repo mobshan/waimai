@@ -10,7 +10,8 @@ const routes = [
   { path: "/msite", component: Msite },
   { path: "/order", component: Order },
   { path: "/profile", component: Profile },
-  { path: "/search", component: Search }
+  { path: "/search", component: Search },
+  { path: "/", redirect: "/msite" }
 ];
 
 const router = new VueRouter({ routes });

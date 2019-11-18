@@ -3,13 +3,13 @@
     <!--首页头部-->
     <HeaderTop title="昌平区北七家宏福科技园(337省道北)">
       <template v-slot:left>
-        <span class="header_search" slot="left">
+        <span class="header_search">
           <i class="iconfont icon-sousuo"></i>
         </span>
       </template>
 
       <template v-slot:right>
-        <span class="header_login" slot="right">
+        <span class="header_login">
           <span class="header_login_text">登录|注册</span>
         </span>
       </template>
@@ -298,9 +298,23 @@
 </template>
 <script>
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
+// 导出swiper的构造函数
+import Swiper from 'swiper'
+// 手动引用swiper的样式
+import 'swiper/css/swiper.min.css'
 export default {
   components: {
     HeaderTop
+  },
+  mounted() {
+    // 此处是方法环境，并不是对象环境
+    new Swiper('.swiper-container', {
+      loop: 'true',
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      }
+    })
   }
 }
 </script>
