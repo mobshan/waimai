@@ -9,15 +9,14 @@
 
 <script>
 import FooterNav from './components/FooterNav/FooterNav'
-import { reqAddress } from './api'
 export default {
   name: 'app',
   components: {
     FooterNav: FooterNav
   },
   async mounted() {
-    const result = await reqAddress('34.8068853983,113.7990029279')
-    console.log(result)
+    // 此处相当于去调用接口，把返回数据放入仓库
+    this.$store.dispatch('getAddress')
   }
 }
 </script>
