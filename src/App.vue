@@ -9,14 +9,14 @@
 
 <script>
 import FooterNav from './components/FooterNav/FooterNav'
-import axios from 'axios'
+import { reqAddress } from './api'
 export default {
   name: 'app',
   components: {
     FooterNav: FooterNav
   },
   async mounted() {
-    const result = await axios.get('/api/index_category')
+    const result = await reqAddress('34.8068853983,113.7990029279')
     console.log(result)
   }
 }
