@@ -86,13 +86,33 @@ export default {
     // 发送获取分类请求
     this.$store.dispatch('getCategorys')
     // 此处是方法环境，并不是对象环境
-    new Swiper('.swiper-container', {
-      loop: 'true',
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true
-      }
-    })
+  },
+  watch: {
+    categorys(value) {
+      // 如果categorys这个值发生变化 ，里面的代码会自动运行一次
+      // 虽然在这个地方已经确保数据有了， 但不能确保结构被 vue渲染完成
+
+      // this.$nextTick vue给我们暴漏了这个固定的方法，可以让我们等待元素渲染完成，它接收一个回调
+      // 我假设1s后才渲染完成
+      // setTimeout(() => {
+      //   new Swiper('.swiper-container', {
+      //     loop: 'true',
+      //     pagination: {
+      //       el: '.swiper-pagination',
+      //       clickable: true
+      //     }
+      //   })
+      // }, 1000);
+      this.$nextTick(() => {
+        new Swiper('.swiper-container', {
+          loop: 'true',
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
+        })
+      })
+    }
   }
 }
 </script>
