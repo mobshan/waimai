@@ -85,6 +85,8 @@ export default {
   mounted() {
     // 发送获取分类请求
     this.$store.dispatch('getCategorys')
+    // 发送获取商家列表
+    this.$store.dispatch('getShops')
     // 此处是方法环境，并不是对象环境
   },
   watch: {
