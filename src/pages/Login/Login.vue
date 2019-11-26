@@ -34,10 +34,10 @@
                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
               </section>
               <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="密码" />
-                <div class="switch_button off">
-                  <div class="switch_circle"></div>
-                  <span class="switch_text">...</span>
+                <input :type="isShowpwd? 'text':'password'" maxlength="8" placeholder="密码" />
+                <div class="switch_button off" @click="isShowpwd=!isShowpwd" :class="isShowpwd? 'on':'off'">
+                  <div class="switch_circle" :class="{right: isShowpwd}"></div>
+                  <span class="switch_text">{{isShowpwd? 'abc':'...'}}</span>
                 </div>
               </section>
               <section class="login_message">
@@ -63,7 +63,8 @@ export default {
     return {
       phone: '', //一会用户输入的手机
       loginWay: true, // 假设true 为短信登录， false为密码登录
-      computeTime:0
+      computeTime:0,
+      isShowpwd:false
     }
   },
   // 使用计算属性，新建一个返回当前电话号是否匹配的属性
@@ -207,6 +208,9 @@ export default {
                 background: #fff;
                 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s;
+                &.right {
+                  transform:translateX(30px);
+                }
               }
             }
           }
