@@ -4,16 +4,20 @@
       <div class="login_header">
         <h2 class="login_logo">Mint外卖</h2>
         <div class="login_header_title">
-          <a href="javascript:;" class="on">短信登录</a>
-          <a href="javascript:;">密码登录</a>
+          <a :class="{on: loginWay}" @click="loginWay = true">短信登录</a>
+          <a :class="{on: !loginWay}" @click="loginWay = false">密码登录</a>
         </div>
       </div>
       <div class="login_content">
         <form>
-          <div class="on">
+          <div :class="{on: loginWay}">
             <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" />
-              <button disabled="disabled" class="get_verification">获取验证码</button>
+              <input type="tel" maxlength="11" placeholder="手机号" v-model="phone" />
+              <button
+                :disabled="!rightPhone"
+                class="get_verification"
+                :class="{right_phone:rightPhone}"
+              >获取验证码</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" />
@@ -23,7 +27,7 @@
               <a href="javascript:;">《用户服务协议》</a>
             </section>
           </div>
-          <div>
+          <div :class="{on: !loginWay}">
             <section>
               <section class="login_message">
                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
@@ -45,14 +49,29 @@
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
-      <a href="javascript:" class="go_back">
+      <a href="javascript:" class="go_back" @click="$router.back()">
         <i class="iconfont icon-arrow-left"></i>
       </a>
     </div>
   </section>
 </template>
 <script>
-export default {}
+export default {
+  name: 'login',
+  data() {
+    return {
+      phone: '', //一会用户输入的手机
+      loginWay: true // 假设true 为短信登录， false为密码登录
+    }
+  },
+  // 使用计算属性，新建一个返回当前电话号是否匹配的属性
+  computed: {
+    rightPhone() {
+      // 这个计算属性返回一个布尔值
+      return /^1[3456789]\d{9}$/.test(this.phone)
+    }
+  }
+}
 </script>
 <style lang="scss">
 @import '../../common/sass/mixins.scss';
