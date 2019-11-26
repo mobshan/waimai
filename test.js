@@ -1,14 +1,4 @@
 // 二维数组
-let arr1 = [
-  { title: 'hello' },
-  { title: 'world' },
-  { title: 'hehe' },
-  { title: 'haha' }
-]
-
-let arr2 = [
-  [{ title: 'hello' }, { title: 'world' }],
-  [{ title: 'hehe' }, { title: 'haha' }]
-]
-
-let minArr = []
+const rating = 3.6
+const intNum = Math.floor(rating)
+console.log(rating * 10 - intNum * 10)
