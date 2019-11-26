@@ -17,7 +17,8 @@
                 :disabled="!rightPhone"
                 class="get_verification"
                 :class="{right_phone:rightPhone}"
-              >获取验证码</button>
+                @click="getCode"
+              >{{computeTime >0   ? `${computeTime}s(已发送)` :'获取验证码'}}</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" />
@@ -61,7 +62,8 @@ export default {
   data() {
     return {
       phone: '', //一会用户输入的手机
-      loginWay: true // 假设true 为短信登录， false为密码登录
+      loginWay: true, // 假设true 为短信登录， false为密码登录
+      computeTime:0
     }
   },
   // 使用计算属性，新建一个返回当前电话号是否匹配的属性
@@ -69,6 +71,21 @@ export default {
     rightPhone() {
       // 这个计算属性返回一个布尔值
       return /^1[3456789]\d{9}$/.test(this.phone)
+    },
+  },
+  methods:{
+    getCode(){ 
+      // 判断当前有没有正在计时
+      if (this.computeTime === 0) {
+        this.computeTime = 30
+        this.timerID = setInterval(() => {
+          this.computeTime--
+          // 如果等于0了就停止计时器
+          if (this.computeTime === 0) {
+            clearInterval(this.timerID)
+          }
+        }, 1000);
+      }
     }
   }
 }
@@ -143,6 +160,9 @@ export default {
               color: #ccc;
               font-size: 14px;
               background: transparent;
+              &.right_phone {
+                color: black;
+              }
             }
           }
           .login_verification {
