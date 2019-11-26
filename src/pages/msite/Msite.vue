@@ -17,7 +17,8 @@
     <!--首页导航-->
     <nav class="msite_nav">
       <!-- 轮播 -->
-      <div class="swiper-container">
+      <!-- v-show 考虑这个元素会不会****经常*****切换它的显示状态 or v-if -->
+      <div class="swiper-container" v-if="categorys.length">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(categorys,index ) in categorysArr" :key="index">
             <a
@@ -36,6 +37,7 @@
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
+      <img src="./images/msite_back.svg" v-else/>
     </nav>
     <!--首页附近商家-->
     <ShopList></ShopList>
