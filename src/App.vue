@@ -17,6 +17,8 @@ export default {
   async mounted() {
     // 此处相当于去调用接口，把返回数据放入仓库
     this.$store.dispatch('getAddress')
+    // 先发一次请求，判断用户是否已经登录过
+    this.$store.dispatch('getUserInfo')
   }
 }
 </script>
