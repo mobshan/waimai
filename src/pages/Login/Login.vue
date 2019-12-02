@@ -204,9 +204,9 @@ export default {
 
       // 判断是否登录成功
       if (result.code===0) {
-        // TODO 保存用户信息 到vuex
+        // 保存用户信息 到vuex
         const userInfo = result.data
-        console.log(userInfo)
+        this.$store.dispatch('recordUser', userInfo)
 
         // 跳转路由页面
         this.$router.replace('/profile')
