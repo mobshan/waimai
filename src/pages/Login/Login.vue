@@ -104,7 +104,7 @@
 </template>
 <script>
 import AlertTip from '../../components/AlertTip/AlertTip'
-import {reqSendCode} from '../../api/index.js'
+import {reqSendCode,reqSmsLogin, reqPwdLogin} from '../../api/index.js'
 export default {
   components: {
     AlertTip
@@ -156,7 +156,9 @@ export default {
         }
       }
     },
-    submit() {
+    async submit() {
+      // 声明一个登录结果变量
+      let result 
       // if (!this.rightPhone) {
       //   this.openAlertTip('你没有输手机号')
       // }
@@ -173,7 +175,8 @@ export default {
           return
         }
 
-        // TODO 发送手机短信登录请求
+        // 发送手机短信登录请求
+        result = await reqSmsLogin(phone, code)
       }else {
         // 用户名密码登录
         const {username, password, captcha} = this
@@ -189,8 +192,28 @@ export default {
           this.openAlertTip('请输入验证码')
           return
         }
+        // 发送用户名密码登录登录请求
+        result = await reqPwdLogin({name:username, pwd:password, captcha})
+      }
 
-        // TODO 发送用户名密码登录登录请求
+      // 如果走到这个地方，说明已经登录，清除计时器
+      if (this.computeTime) {
+        this.computeTime = 0
+        clearInterval(this.timerID)
+      }
+
+      // 判断是否登录成功
+      if (result.code===0) {
+        // TODO 保存用户信息 到vuex
+        const userInfo = result.data
+        console.log(userInfo)
+
+        // 跳转路由页面
+        this.$router.replace('/profile')
+      }else {
+        // 更新图形验证码，并提示它
+        this.getCaptcha()
+        this.openAlertTip(result.msg)
       }
     },
     openAlertTip(alertText) {
