@@ -22,7 +22,7 @@
                 :disabled="!rightPhone"
                 class="get_verification"
                 :class="{ right_phone: rightPhone }"
-                @click="getCode"
+                @click.prevent="getCode"
               >
                 {{ computeTime > 0 ? `${computeTime}s(已发送)` : '获取验证码' }}
               </button>
@@ -103,6 +103,7 @@
 </template>
 <script>
 import AlertTip from '../../components/AlertTip/AlertTip'
+import {reqSendCode} from '../../api/index.js'
 export default {
   components: {
     AlertTip
@@ -130,7 +131,7 @@ export default {
     }
   },
   methods: {
-    getCode() {
+    async getCode() {
       // 判断当前有没有正在计时
       if (this.computeTime === 0) {
         this.computeTime = 30
@@ -141,6 +142,16 @@ export default {
             clearInterval(this.timerID)
           }
         }, 1000)
+
+        // 向手机发送验证码
+        const result = await reqSendCode(this.phone)
+        console.log(result)
+        if (result.code === 1) {
+          this.openAlertTip(result.msg)
+          // 重置计时时间，清除计时器
+          this.computeTime = 0
+          clearInterval(this.timerID)
+        }
       }
     },
     submit() {
