@@ -80,8 +80,9 @@
                 />
                 <img
                   class="get_verification"
-                  src="./images/captcha.svg"
+                  :src="captchaSrc"
                   alt="captcha"
+                  @click="getCaptcha"
                 />
               </section>
             </section>
@@ -120,7 +121,8 @@ export default {
       computeTime: 0,
       isShowpwd: false,
       alertShow: false,
-      alertText: 'haha'
+      alertText: 'haha',
+      captchaSrc:'http://localhost:4000/captcha'
     }
   },
   // 使用计算属性，新建一个返回当前电话号是否匹配的属性
@@ -198,6 +200,9 @@ export default {
     handleClose() {
       this.alertShow = false
       this.alertText = ''
+    },
+   getCaptcha(){
+      this.captchaSrc = `http://localhost:4000/captcha?time=${Date.now()}`
     }
   }
 }
