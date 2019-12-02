@@ -9,7 +9,7 @@
         <li class="shop_li border-1px" v-for="(shop, index ) in shops" :key="index">
           <a>
             <div class="shop_left">
-              <img class="shop_img" :src="shop.image_path" />
+              <img class="shop_img" :src="baseImgUrl+shop.image_path" />
             </div>
             <div class="shop_right">
               <section class="shop_detail_header">
@@ -24,7 +24,7 @@
               </section>
               <section class="shop_rating_order">
                 <section class="shop_rating_order_left">
-                   <Stars :rating="shop.rating" size="24"></Stars>
+                  <Stars :rating="shop.rating" size="24"></Stars>
                   <div class="rating_section">{{shop.rating}}</div>
                   <div class="order_section">月售{{shop.recent_order_num}}单</div>
                 </section>
@@ -43,7 +43,11 @@
           </a>
         </li>
       </ul>
-      <ul v-else><li v-for="item in 7" :key="item"><img src="./images/shop_back.svg"/></li></ul>
+      <ul v-else>
+        <li v-for="item in 7" :key="item">
+          <img src="./images/shop_back.svg" />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -51,6 +55,12 @@
 import { mapState } from 'vuex'
 import Stars from '../Stars/Stars'
 export default {
+  data() {
+    return {
+      baseImgUrl:
+        'https://raw.githubusercontent.com/W-Qing/Vue-MintShop/master/mintshop-client/src/components/ShopList/images/'
+    }
+  },
   components: {
     Stars
   },

@@ -4,45 +4,85 @@
       <div class="login_header">
         <h2 class="login_logo">Mint外卖</h2>
         <div class="login_header_title">
-          <a :class="{on: loginWay}" @click="loginWay = true">短信登录</a>
-          <a :class="{on: !loginWay}" @click="loginWay = false">密码登录</a>
+          <a :class="{ on: loginWay }" @click="loginWay = true">短信登录</a>
+          <a :class="{ on: !loginWay }" @click="loginWay = false">密码登录</a>
         </div>
       </div>
       <div class="login_content">
-        <form>
-          <div :class="{on: loginWay}">
+        <form @submit="submit">
+          <div :class="{ on: loginWay }">
             <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" v-model="phone" />
+              <input
+                type="tel"
+                maxlength="11"
+                placeholder="手机号"
+                v-model="phone"
+              />
               <button
                 :disabled="!rightPhone"
                 class="get_verification"
-                :class="{right_phone:rightPhone}"
+                :class="{ right_phone: rightPhone }"
                 @click="getCode"
-              >{{computeTime >0   ? `${computeTime}s(已发送)` :'获取验证码'}}</button>
+              >
+                {{ computeTime > 0 ? `${computeTime}s(已发送)` : '获取验证码' }}
+              </button>
             </section>
             <section class="login_verification">
-              <input type="tel" maxlength="8" placeholder="验证码" />
+              <input
+                type="text"
+                maxlength="8"
+                placeholder="验证码"
+                v-model="code"
+              />
             </section>
             <section class="login_hint">
               温馨提示：未注册Mint外卖帐号的手机号，登录时将自动注册，且代表已同意
               <a href="javascript:;">《用户服务协议》</a>
             </section>
           </div>
-          <div :class="{on: !loginWay}">
+          <div :class="{ on: !loginWay }">
             <section>
               <section class="login_message">
-                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
+                <input
+                  type="text"
+                  maxlength="11"
+                  placeholder="手机/邮箱/用户名"
+                  v-model="username"
+                />
               </section>
               <section class="login_verification">
-                <input :type="isShowpwd? 'text':'password'" maxlength="8" placeholder="密码" />
-                <div class="switch_button off" @click="isShowpwd=!isShowpwd" :class="isShowpwd? 'on':'off'">
-                  <div class="switch_circle" :class="{right: isShowpwd}"></div>
-                  <span class="switch_text">{{isShowpwd? 'abc':'...'}}</span>
+                <input
+                  :type="isShowpwd ? 'text' : 'password'"
+                  maxlength="8"
+                  placeholder="密码"
+                  v-model="password"
+                />
+                <div
+                  class="switch_button off"
+                  @click="isShowpwd = !isShowpwd"
+                  :class="isShowpwd ? 'on' : 'off'"
+                >
+                  <div
+                    class="switch_circle"
+                    :class="{ right: isShowpwd }"
+                  ></div>
+                  <span class="switch_text">{{
+                    isShowpwd ? 'abc' : '...'
+                  }}</span>
                 </div>
               </section>
               <section class="login_message">
-                <input type="text" maxlength="11" placeholder="验证码" />
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha" />
+                <input
+                  type="text"
+                  maxlength="11"
+                  placeholder="验证码"
+                  v-model="captcha"
+                />
+                <img
+                  class="get_verification"
+                  src="./images/captcha.svg"
+                  alt="captcha"
+                />
               </section>
             </section>
           </div>
@@ -54,17 +94,32 @@
         <i class="iconfont icon-arrow-left"></i>
       </a>
     </div>
+    <AlertTip
+      v-show="alertShow"
+      :alertText="alertText"
+      @doClose="handleClose"
+    ></AlertTip>
   </section>
 </template>
 <script>
+import AlertTip from '../../components/AlertTip/AlertTip'
 export default {
+  components: {
+    AlertTip
+  },
   name: 'login',
   data() {
     return {
       phone: '', //一会用户输入的手机
+      code: '', //短信验证码,
+      username: '', //用户名
+      password: '', //密码
+      captcha: '', // 图片验证码
       loginWay: true, // 假设true 为短信登录， false为密码登录
-      computeTime:0,
-      isShowpwd:false
+      computeTime: 0,
+      isShowpwd: false,
+      alertShow: false,
+      alertText: 'haha'
     }
   },
   // 使用计算属性，新建一个返回当前电话号是否匹配的属性
@@ -72,10 +127,10 @@ export default {
     rightPhone() {
       // 这个计算属性返回一个布尔值
       return /^1[3456789]\d{9}$/.test(this.phone)
-    },
+    }
   },
-  methods:{
-    getCode(){ 
+  methods: {
+    getCode() {
       // 判断当前有没有正在计时
       if (this.computeTime === 0) {
         this.computeTime = 30
@@ -85,8 +140,21 @@ export default {
           if (this.computeTime === 0) {
             clearInterval(this.timerID)
           }
-        }, 1000);
+        }, 1000)
       }
+    },
+    submit() {
+      if (!this.rightPhone) {
+        this.openAlertTip('你没有输手机号')
+      }
+    },
+    openAlertTip(alertText) {
+      this.alertShow = true
+      this.alertText = alertText
+    },
+    handleClose() {
+      this.alertShow = false
+      this.alertText = ''
     }
   }
 }
@@ -209,7 +277,7 @@ export default {
                 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s;
                 &.right {
-                  transform:translateX(30px);
+                  transform: translateX(30px);
                 }
               }
             }
