@@ -144,8 +144,40 @@ export default {
       }
     },
     submit() {
-      if (!this.rightPhone) {
-        this.openAlertTip('你没有输手机号')
+      // if (!this.rightPhone) {
+      //   this.openAlertTip('你没有输手机号')
+      // }
+      // 前端验证 要先考虑当前在 手机短信登录or 用户名密码登录
+      if (this.loginWay) {
+        // 手机短信登录
+        const {rightPhone, phone, code} = this
+        if (!rightPhone) {
+          this.openAlertTip('请输入正确的手机号')
+          return
+        }
+        if (!/\d{6}/.test(code)) {
+          this.openAlertTip('请输入正确的短信验证码')
+          return
+        }
+
+        // TODO 发送手机短信登录请求
+      }else {
+        // 用户名密码登录
+        const {username, password, captcha} = this
+        if (!username) {
+          this.openAlertTip('请输入用户名')
+          return
+        }
+        if (!password) {
+          this.openAlertTip('请输入密码')
+          return
+        }
+        if (!captcha) {
+          this.openAlertTip('请输入验证码')
+          return
+        }
+
+        // TODO 发送用户名密码登录登录请求
       }
     },
     openAlertTip(alertText) {
