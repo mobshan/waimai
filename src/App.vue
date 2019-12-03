@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1331186_krncm9pw1d.css" />
+    <link
+      rel="stylesheet"
+      href="https://at.alicdn.com/t/font_1331186_krncm9pw1d.css"
+    />
     <router-view></router-view>
     <!-- 我们要动太的控制这个footer的显示与隐藏 -->
     <FooterNav v-show="$route.meta.showFooter"></FooterNav>
@@ -9,6 +12,7 @@
 
 <script>
 import FooterNav from './components/FooterNav/FooterNav'
+import { reqShopInfo } from './api/index.js'
 export default {
   name: 'app',
   components: {
@@ -19,6 +23,8 @@ export default {
     this.$store.dispatch('getAddress')
     // 先发一次请求，判断用户是否已经登录过
     this.$store.dispatch('getUserInfo')
+    const result = await reqShopInfo()
+    console.log(result)
   }
 }
 </script>

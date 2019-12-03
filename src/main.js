@@ -5,6 +5,9 @@ import '../static/css/reset.css'
 import store from './store/index'
 Vue.config.productionTip = false
 import { Button } from 'vant'
+
+// 引入 mock
+import './mock/mockServer'
 Vue.use(Button)
 
 new Vue({
