@@ -88,7 +88,7 @@
         </div>
       </a>
     </section>
-    <section class="profile_my_order border-1px">
+    <section class="profile_my_order border-1px" v-if="userInfo._id">
       <van-button type="danger" @click="logout">退出吧</van-button>
     </section>
   </section>
@@ -110,7 +110,8 @@ export default {
         message: '想好了吗'
       })
         .then(() => {
-          console.log(1)
+          // 执行退出函数
+          this.$store.dispatch('logout')
         })
         .catch(() => {
           console.log(2)

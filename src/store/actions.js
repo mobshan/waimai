@@ -3,12 +3,19 @@ Action:通过操作mutation间接更新state的多个方法的对象
  */
 
 // 注意要引入api接口函数
-import { reqAddress, reqCategorys, reqShops, reqUserInfo } from '../api'
+import {
+  reqAddress,
+  reqCategorys,
+  reqShops,
+  reqUserInfo,
+  reqLogout
+} from '../api'
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
-  RECEIVE_USER_INFO
+  RECEIVE_USER_INFO,
+  RESET_USER_INFO
 } from './mutation-types'
 export default {
   // 异步获取地址
@@ -62,6 +69,14 @@ export default {
     if (result.code === 0) {
       const userInfo = result.data
       commit(RECEIVE_USER_INFO, { userInfo })
+    }
+  },
+  //退出登录
+  async logout({ commit }) {
+    const result = await reqLogout()
+    // 判断是否退出成功
+    if (result.code === 0) {
+      commit(RESET_USER_INFO)
     }
   }
 }
