@@ -12,7 +12,6 @@
 
 <script>
 import FooterNav from './components/FooterNav/FooterNav'
-import { reqShopInfo } from './api/index.js'
 export default {
   name: 'app',
   components: {
@@ -23,8 +22,7 @@ export default {
     this.$store.dispatch('getAddress')
     // 先发一次请求，判断用户是否已经登录过
     this.$store.dispatch('getUserInfo')
-    const result = await reqShopInfo()
-    console.log(result)
+    this.$store.dispatch('getShopInfo')
   }
 }
 </script>
