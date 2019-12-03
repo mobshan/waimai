@@ -7,7 +7,7 @@
           <i class="iconfont icon-yonghuming"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">{{userInfo.name ||'登录/注册'}}</p>
+          <p class="user-info-top">{{ userInfo.name || '登录/注册' }}</p>
           <p>
             <span class="user-icon">
               <i class="iconfont icon-msnui-tel icon-mobile"></i>
@@ -23,21 +23,15 @@
     <section class="profile_info_data border-1px">
       <ul class="info_data_list">
         <a href="javascript:" class="info_data_link">
-          <span class="info_data_top">
-            <span>0.00</span>元
-          </span>
+          <span class="info_data_top"> <span>0.00</span>元 </span>
           <span class="info_data_bottom">我的余额</span>
         </a>
         <a href="javascript:" class="info_data_link">
-          <span class="info_data_top">
-            <span>0</span>个
-          </span>
+          <span class="info_data_top"> <span>0</span>个 </span>
           <span class="info_data_bottom">我的优惠</span>
         </a>
         <a href="javascript:" class="info_data_link">
-          <span class="info_data_top">
-            <span>0</span>分
-          </span>
+          <span class="info_data_top"> <span>0</span>分 </span>
           <span class="info_data_bottom">我的积分</span>
         </a>
       </ul>
@@ -94,18 +88,35 @@
         </div>
       </a>
     </section>
+    <section class="profile_my_order border-1px">
+      <van-button type="danger" @click="logout">退出吧</van-button>
+    </section>
   </section>
 </template>
 <script>
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
+import { Dialog } from 'vant'
 export default {
   components: {
     HeaderTop
   },
   computed: {
-    ...mapState(['userInfo']),
+    ...mapState(['userInfo'])
   },
+  methods: {
+    logout() {
+      Dialog.confirm({
+        message: '想好了吗'
+      })
+        .then(() => {
+          console.log(1)
+        })
+        .catch(() => {
+          console.log(2)
+        })
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -312,4 +323,3 @@ export default {
   }
 }
 </style>
-
