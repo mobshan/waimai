@@ -104,11 +104,13 @@ export default {
   },
 
   // 异步获取商家商品列表
-  async getShopGoods({ commit }) {
+  async getShopGoods({ commit }, callback) {
     const result = await reqShopGoods()
     if (result.code === 0) {
       const goods = result.data
       commit(RECEIVE_GOODS, { goods })
+      // 如果走到这里说明数据已取出，可以执行我们的js
+      callback && callback()
     }
   }
 }
