@@ -21,7 +21,9 @@ import {
   RESET_USER_INFO,
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 } from './mutation-types'
 export default {
   // 异步获取地址
@@ -111,6 +113,14 @@ export default {
       commit(RECEIVE_GOODS, { goods })
       // 如果走到这里说明数据已取出，可以执行我们的js
       callback && callback()
+    }
+  },
+  // 同步更新food中的count值
+  updateFoodCount({ commit }, { isAdd, food }) {
+    if (isAdd) {
+      commit(INCREMENT_FOOD_COUNT, { food })
+    } else {
+      commit(DECREMENT_FOOD_COUNT, { food })
     }
   }
 }
