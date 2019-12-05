@@ -5,10 +5,16 @@
         <!-- 菜单对应的是食物分类列表-->
         <ul>
           <!--current-->
-          <li class="menu-item" v-for="(good, index) in goods" :key="index">
+          <li
+            class="menu-item"
+            v-for="(good, index) in goods"
+            :key="index"
+            @click="moveRight(index)"
+            :class="{current:index === currentIndex}"
+          >
             <span class="text bottom-border-1px">
               <img class="icon" :src="good.icon" v-if="good.icon" />
-              {{good.name}}
+              {{ good.name }}
             </span>
           </li>
         </ul>
@@ -18,7 +24,7 @@
         <!-- 所以右侧是在一个分类标题列表里面嵌套着各类食物列表-->
         <ul ref="foodsUl">
           <li class="food-list-hook" v-for="(good, index) in goods" :key="index">
-            <h1 class="title">{{good.name}}</h1>
+            <h1 class="title">{{ good.name }}</h1>
             <ul>
               <li
                 class="food-item bottom-border-1px"
@@ -29,15 +35,15 @@
                   <img width="57" height="57" :src="food.icon" />
                 </div>
                 <div class="content">
-                  <h2 class="name">{{food.name}}</h2>
-                  <p class="desc">{{food.description}}</p>
+                  <h2 class="name">{{ food.name }}</h2>
+                  <p class="desc">{{ food.description }}</p>
                   <div class="extra">
-                    <span class="count">月售{{food.sellCount}}份</span>
-                    <span>好评率{{food.rating}}%</span>
+                    <span class="count">月售{{ food.sellCount }}份</span>
+                    <span>好评率{{ food.rating }}%</span>
                   </div>
                   <div class="price">
-                    <span class="now">￥{{food.price}}</span>
-                    <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
+                    <span class="now">￥{{ food.price }}</span>
+                    <span class="old" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
                   </div>
                   <div class="cartcontrol-wrapper">CartControl</div>
                 </div>
@@ -50,26 +56,80 @@
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
+import { mapState } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
+  data() {
+    return {
+      scrollY: 0, //右侧向上折叠高度
+      tops: [] // 右侧每个条目高度
+    }
+  },
   computed: {
-    ...mapState(['goods'])
+    ...mapState(['goods']),
+    currentIndex() {
+      const { tops, scrollY } = this
+      const index = tops.findIndex((top, index) => {
+        // return 一个布尔值，如果为true,就说明找到了
+        return scrollY >= top && scrollY < tops[index + 1]
+      })
+      return index
+    }
   },
   mounted() {
     this.$store.dispatch('getShopGoods', () => {
       this.$nextTick(() => {
         // 列表数据更新显示后执行
-        console.log(1)
-        new BScroll('.menu-wrapper', {
-          click: true
-        })
-        new BScroll('.foods-wrapper', {
-          click: true
-        })
+        this._initScroll()
+        this._initTops()
       })
     })
   },
+  methods: {
+    _initScroll() {
+      console.log(1)
+      new BScroll('.menu-wrapper', {
+        click: true
+      })
+      this.foodsScroll = new BScroll('.foods-wrapper', {
+        probeType: 2, // 必须加上，不然无法监听高度，控制高度
+        click: true
+      })
+      this.foodsScroll.on('scroll', ({ x, y }) => {
+        this.scrollY = Math.abs(y)
+      })
+      // 给右侧列表绑定scroll结束的监听
+      this.foodsScroll.on('scrollEnd', ({ x, y }) => {
+        console.log('scrollEnd', x, y)
+        this.scrollY = Math.abs(y)
+      })
+    },
+    _initTops() {
+      let tops = []
+      let top = 0
+      // 获取ul
+      tops.push(top)
+      const lis = this.$refs.foodsUl.children
+      // 此时取出的lis是一个元素列表，是伪数组
+      Array.prototype.slice.call(lis).forEach(li => {
+        top += li.clientHeight
+        tops.push(top)
+      })
+      console.log(tops)
+      this.tops = tops
+    },
+    moveRight(index) {
+      // console.log(index)
+      // 使用右侧列表滑动到对应的位置
+
+      // 得到目标位置的scrollY
+      const scrollY = this.tops[index]
+      // 立即更新scrollY(让点击的分类项成为当前分类)
+      this.scrollY = scrollY
+      // 平滑滑动右侧列表 better-scroll里的方法
+      this.foodsScroll.scrollTo(0, -scrollY, 300)
+    }
+  }
 }
 </script>
 
@@ -194,4 +254,3 @@ export default {
   }
 }
 </style>
-
