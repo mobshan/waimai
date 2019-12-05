@@ -30,6 +30,7 @@
                 class="food-item bottom-border-1px"
                 v-for="(food, index) in good.foods"
                 :key="index"
+                @click="showFood(food)"
               >
                 <div class="icon">
                   <img width="57" height="57" :src="food.icon" />
@@ -46,7 +47,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{ food.oldPrice }}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    <CartControl :food="food"/>
+                    <CartControl :food="food" />
                   </div>
                 </div>
               </li>
@@ -55,21 +56,25 @@
         </ul>
       </div>
     </div>
+    <Food :food="food" ref="food" />
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import CartControl from '../../../components/CartControl/CartControl'
 import BScroll from 'better-scroll'
+import Food from '../../../components/Food/Food'
 export default {
   data() {
     return {
       scrollY: 0, //右侧向上折叠高度
-      tops: [] // 右侧每个条目高度
+      tops: [], // 右侧每个条目高度
+      food: {}
     }
   },
-  components:{
-    CartControl
+  components: {
+    CartControl,
+    Food
   },
   computed: {
     ...mapState(['goods']),
@@ -134,6 +139,11 @@ export default {
       this.scrollY = scrollY
       // 平滑滑动右侧列表 better-scroll里的方法
       this.foodsScroll.scrollTo(0, -scrollY, 300)
+    },
+    showFood(food) {
+      this.food = food
+      // 让食物组件显示
+      this.$refs.food.toogleFoodShow()
     }
   }
 }
