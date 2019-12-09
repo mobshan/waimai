@@ -12,7 +12,8 @@ import {
   RECEIVE_RATINGS,
   RECEIVE_INFO,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART
 } from './mutation-types'
 // [方法名](state,{param}){}
 export default {
@@ -65,5 +66,8 @@ export default {
         state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
       }
     }
+  },
+  [CLEAR_CART](state) {
+    state.cartFoods = []
   }
 }
