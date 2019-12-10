@@ -10,7 +10,7 @@ import { Button } from 'vant'
 import VueLazyload from 'vue-lazyload'
 // 将一张loading图片加载进来
 import loading from './common/images/loading.gif'
-
+import './filters'
 // 引入 mock
 import './mock/mockServer'
 Vue.use(Button)

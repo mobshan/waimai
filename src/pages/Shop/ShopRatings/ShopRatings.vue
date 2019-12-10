@@ -95,7 +95,7 @@
                   >{{ item }}</span
                 >
               </div>
-              <div class="time">{{ rating.rateTime | formatDate }}</div>
+              <div class="time">{{ rating.rateTime | dateFormat }}</div>
             </div>
           </li>
         </ul>
@@ -161,31 +161,6 @@ export default {
     },
     toggleOnlyShowText() {
       this.onlyShowText = !this.onlyShowText
-    }
-  },
-  filters: {
-    formatDate(date) {
-      const result = new Date(date)
-      const year = result.getFullYear()
-      const month = result.getMonth() + 1
-      const day =
-        result.getDate() < 10 ? '0' + result.getDate() : '' + result.getDate()
-      const hour = result.getHours()
-      const minutes = result.getMinutes()
-      const seconds = result.getSeconds()
-      return (
-        year +
-        '-' +
-        month +
-        '-' +
-        day +
-        ' ' +
-        hour +
-        ':' +
-        minutes +
-        ':' +
-        seconds
-      )
     }
   }
 }
