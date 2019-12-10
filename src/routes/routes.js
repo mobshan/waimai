@@ -1,10 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Msite from '../pages/msite/Msite.vue'
-import Order from '../pages/oder/Order.vue'
-import Profile from '../pages/profile/Profile.vue'
-import Search from '../pages/search/Search.vue'
+// import Msite from '../pages/msite/Msite.vue'
+// import Order from '../pages/oder/Order.vue'
+// import Profile from '../pages/profile/Profile.vue'
+// import Search from '../pages/search/Search.vue'
+
+// 路由组件懒加载
+const Msite = () => import('../pages/msite/Msite.vue')
+const Search = () => import('../pages/search/Search.vue')
+const Order = () => import('../pages/order/Order.vue')
+const Profile = () => import('../pages/profile/Profile.vue')
 import Login from '../pages/Login/Login.vue'
 import Shop from '../pages/Shop/Shop.vue'
 import ShopGoods from '../pages/Shop/ShopGoods/ShopGoods.vue'
@@ -61,7 +67,7 @@ const routes = [
   }
 ]
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({ mode: 'history', routes })
 
 export default router
 Vue.use(VueRouter)
