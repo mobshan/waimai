@@ -9,3 +9,5 @@ let sum = arr.reduce((total, currentValue) => {
   return total + currentValue
 }, 0)
 console.log(sum)
+
+console.log(new Date(1469281964000))
